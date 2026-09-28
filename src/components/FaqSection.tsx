@@ -165,13 +165,24 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ onOpenSupport }) => {
                         </div>
 
                         {faq.category === 'Meetings & Sessions' && (
-                          <a
-                            href="#scheduling"
-                            className="text-amber-400 hover:text-amber-300 underline font-bold flex items-center gap-1 mt-1 sm:mt-0"
-                          >
-                            <span>Go to Scheduler</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
+                          <div className="flex items-center gap-2.5 mt-1 sm:mt-0">
+                            <a
+                              href="#scheduling"
+                              className="text-amber-400 hover:text-amber-300 underline font-bold flex items-center gap-1"
+                            >
+                              <span>Go to Scheduler</span>
+                            </a>
+                            <span className="text-zinc-600 hidden sm:inline">•</span>
+                            <a
+                              href="https://cal.com/joao-correia-lus35m/30min"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-zinc-400 hover:text-amber-400 underline font-bold flex items-center gap-1"
+                            >
+                              <span>Open Cal.com</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -198,12 +209,23 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ onOpenSupport }) => {
             </div>
           </div>
 
-          <a
-            href="#scheduling"
-            className="w-full sm:w-auto px-6 py-3 bg-amber-400 hover:bg-amber-300 text-black font-heading font-extrabold uppercase text-xs tracking-wider rounded-lg shadow-lg shadow-amber-400/20 whitespace-nowrap text-center transition-all cursor-pointer"
-          >
-            Book 30-Min Session
-          </a>
+          <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full sm:w-auto">
+            <a
+              href="#scheduling"
+              className="w-full sm:w-auto px-6 py-3 bg-amber-400 hover:bg-amber-300 text-black font-heading font-extrabold uppercase text-xs tracking-wider rounded-lg shadow-lg shadow-amber-400/20 whitespace-nowrap text-center transition-all cursor-pointer"
+            >
+              Book 30-Min Session
+            </a>
+            <a
+              href="https://cal.com/joao-correia-lus35m/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-4 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-heading font-bold uppercase text-xs tracking-wider rounded-lg border border-zinc-700 whitespace-nowrap text-center flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+            >
+              <span>Direct Cal.com Link</span>
+              <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
+            </a>
+          </div>
         </div>
       </div>
     </section>

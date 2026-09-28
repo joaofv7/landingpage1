@@ -33,6 +33,8 @@ const QUICK_REPLIES = [
   "What perks do GTA+ members get?"
 ];
 
+const CAL_URL = "https://cal.com/joao-correia-lus35m/30min";
+
 export const ChatBotWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -71,9 +73,10 @@ export const ChatBotWidget: React.FC = () => {
     // 1. GREETINGS & INTRODUCTIONS
     if (/^(hi|hello|hey|greetings|sup|yo|good (morning|afternoon|evening)|howdy)\b/i.test(q) || q === 'help' || q === 'who are you') {
       return {
-        text: "Greetings! I'm your dedicated Rockstar Games Support Dispatch Assistant. I can assist you with Grand Theft Auto VI release & pre-orders, Social Club account linking, Rockstar Games Launcher diagnostics, or booking a private 1-on-1 technical consultation on our Cal.com calendar. What can I help you resolve?",
+        text: "Greetings! I'm your dedicated Rockstar Games Support Dispatch Assistant. I can assist you with Grand Theft Auto VI release & pre-orders, Social Club account linking, Rockstar Games Launcher diagnostics, or booking a private 1-on-1 technical consultation on our Cal.com calendar (https://cal.com/joao-correia-lus35m/30min). What can I help you resolve?",
         action: {
           label: "Book 1-on-1 Support Session",
+          href: CAL_URL,
           onClickScrollId: "scheduling"
         }
       };
@@ -128,9 +131,10 @@ export const ChatBotWidget: React.FC = () => {
       q.includes('reschedule')
     ) {
       return {
-        text: "You can schedule a complimentary 30-minute 1-on-1 technical support session with a certified Rockstar Games support engineer right here on this page! We utilize Cal.com for seamless real-time calendar synchronization. During your private session, an engineer can provide live screen-sharing diagnostics for complex PC issues, assist with Social Club account recovery, or configure cloud save transfers.",
+        text: "You can schedule a complimentary 30-minute 1-on-1 technical support session with a certified Rockstar Games support engineer! We utilize Cal.com for seamless real-time calendar synchronization. Book directly via https://cal.com/joao-correia-lus35m/30min or use our embedded scheduler on this page. During your private session, an engineer can provide live screen-sharing diagnostics for complex PC issues, assist with Social Club account recovery, or configure cloud save transfers.",
         action: {
-          label: "Open Cal.com Scheduler Section",
+          label: "Open Cal.com Scheduler (New Tab)",
+          href: CAL_URL,
           onClickScrollId: "scheduling"
         }
       };
@@ -157,9 +161,10 @@ export const ChatBotWidget: React.FC = () => {
       q.includes('cache')
     ) {
       return {
-        text: "Here are immediate troubleshooting steps to resolve Rockstar Games Launcher crashes, freezes, and Error 1000.50:\n\n1. Run As Administrator: Right-click the Launcher desktop icon and select 'Run as Administrator'.\n2. Verify File Integrity: Open Launcher Settings > 'My Installed Games', choose your game, and click 'Verify Integrity' to repair corrupted binaries.\n3. Clear Cache: Press Win+R, type '%localappdata%\\Rockstar Games\\Launcher' and delete temporary profile cache files.\n4. Check Server Status: Ensure Rockstar Authentication services are green.\n\nStill stuck? Book a 30-minute screen-share session with our engineering team!",
+        text: "Here are immediate troubleshooting steps to resolve Rockstar Games Launcher crashes, freezes, and Error 1000.50:\n\n1. Run As Administrator: Right-click the Launcher desktop icon and select 'Run as Administrator'.\n2. Verify File Integrity: Open Launcher Settings > 'My Installed Games', choose your game, and click 'Verify Integrity' to repair corrupted binaries.\n3. Clear Cache: Press Win+R, type '%localappdata%\\Rockstar Games\\Launcher' and delete temporary profile cache files.\n4. Check Server Status: Ensure Rockstar Authentication services are green.\n\nStill stuck? Book a 30-minute screen-share session with our engineering team at https://cal.com/joao-correia-lus35m/30min!",
         action: {
           label: "Schedule Launcher Support Session",
+          href: CAL_URL,
           onClickScrollId: "scheduling"
         }
       };
@@ -299,9 +304,10 @@ export const ChatBotWidget: React.FC = () => {
     // Parses and acknowledges the user's specific inquiry keywords naturally
     const cleanWord = q.replace(/[^a-zA-Z0-9\s]/g, '').split(' ').slice(0, 4).join(' ');
     return {
-      text: `Regarding your inquiry about "${cleanWord || 'this topic'}": Our support knowledge base covers this thoroughly! You can explore our dedicated FAQ below for detailed guides on account linking and launcher fixes, or schedule a direct 30-minute video session with our engineering team on Cal.com.`,
+      text: `Regarding your inquiry about "${cleanWord || 'this topic'}": Our support knowledge base covers this thoroughly! You can explore our dedicated FAQ below for detailed guides on account linking and launcher fixes, or schedule a direct 30-minute video session with our engineering team on Cal.com (https://cal.com/joao-correia-lus35m/30min).`,
       action: {
-        label: "Book 1-on-1 Support Session",
+        label: "Schedule Support Call (Cal.com)",
+        href: CAL_URL,
         onClickScrollId: "scheduling"
       }
     };
@@ -445,19 +451,31 @@ export const ChatBotWidget: React.FC = () => {
               <Calendar className="w-3.5 h-3.5" />
               Need 1-on-1 screen-share?
             </span>
-            <button
-              type="button"
-              onClick={() => {
-                const el = document.getElementById('scheduling');
-                if (el) {
-                  el.scrollIntoView({ behavior: 'smooth' });
-                  setIsOpen(false);
-                }
-              }}
-              className="font-bold underline hover:text-white cursor-pointer"
-            >
-              Book 30-min Call
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById('scheduling');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                    setIsOpen(false);
+                  }
+                }}
+                className="font-bold underline hover:text-white cursor-pointer"
+              >
+                In-Page
+              </button>
+              <span className="text-zinc-600">•</span>
+              <a
+                href={CAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold underline hover:text-white inline-flex items-center gap-1 cursor-pointer"
+              >
+                <span>Cal.com</span>
+                <ExternalLink className="w-2.5 h-2.5" />
+              </a>
+            </div>
           </div>
 
           {/* Message History Area */}
@@ -476,17 +494,33 @@ export const ChatBotWidget: React.FC = () => {
                 >
                   <p>{msg.text}</p>
 
-                  {/* Optional Inline Action Button */}
+                  {/* Action Buttons */}
                   {msg.action && (
-                    <div className="mt-3 pt-2.5 border-t border-zinc-800 flex items-center">
+                    <div className="mt-3 pt-2.5 border-t border-zinc-800 flex flex-wrap items-center gap-2">
                       <button
                         type="button"
                         onClick={() => handleActionClick(msg.action)}
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-amber-400 hover:bg-amber-300 text-black font-heading font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer shadow-sm"
                       >
                         <span>{msg.action.label}</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
+                        {msg.action.href ? <ExternalLink className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
                       </button>
+
+                      {msg.action.onClickScrollId && msg.action.href && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const el = document.getElementById(msg.action!.onClickScrollId!);
+                            if (el) {
+                              el.scrollIntoView({ behavior: 'smooth' });
+                              setIsOpen(false);
+                            }
+                          }}
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[10px] uppercase font-mono tracking-wider transition-colors cursor-pointer"
+                        >
+                          <span>View On Page</span>
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>

@@ -3,7 +3,7 @@ import { Calendar, Clock, Video, ShieldCheck, ExternalLink, RefreshCw, CheckCirc
 
 export const SchedulingSection: React.FC = () => {
   const [iframeLoaded, setIframeLoaded] = useState(false);
-  const CAL_URL = "https://cal.com/d/ok3YiyxD9HiQMQtEbKGBCc/30min";
+  const CAL_URL = "https://cal.com/joao-correia-lus35m/30min";
 
   return (
     <section id="scheduling" className="py-20 bg-[#0b0c10] border-t border-zinc-800 relative overflow-hidden">
